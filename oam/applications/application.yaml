@@ -2,20 +2,22 @@ apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
   name: gatedemo-processor
+  annotations:
+    app.oam.dev/publishVersion: "c45a086a6b3bd2cbf71a8255456653507d5296e3"
   namespace: default
 spec:
   components:
-  - name: gatedemo-processor
-    type: webservice
-    properties:
-      name: gatedemo-processor
-      image: healthidpuaeacr.azurecr.io/gatedemo-processor:latest
-      language: python
-      framework: fastapi
-      port: 8080
-      healthPath: /health
-      database: postgres
-      cache: redis
+    - name: gatedemo-processor
+      type: webservice
+      properties:
+        name: gatedemo-processor
+        image: healthidpuaeacr.azurecr.io/gatedemo-processor:c45a086
+        language: python
+        framework: fastapi
+        port: 8080
+        healthPath: /health
+        database: postgres
+        cache: redis
   # NOTE: topology policy intentionally omitted — added by oam-updater
   # when targetVCluster != "host". Host deployments need no topology policy.
   # Add your components here using the following types:
@@ -41,7 +43,6 @@ spec:
   #     framework: react
   #     styling: material-ui
   #     apiEndpoint: /api
-  
-  # Note: Workflow orchestration is handled by KubeVela WorkflowStepDefinitions
-  # installed in the cluster, not embedded in the application spec.
-  # See /crossplane/oam/workflow-step-definitions.yaml for orchestration logic.
+# Note: Workflow orchestration is handled by KubeVela WorkflowStepDefinitions
+# installed in the cluster, not embedded in the application spec.
+# See /crossplane/oam/workflow-step-definitions.yaml for orchestration logic.
